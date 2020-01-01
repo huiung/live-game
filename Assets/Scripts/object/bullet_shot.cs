@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class bullet_shot : MonoBehaviour
-{    
-    public float bulletSpeed = 3f;
+{
+    public float bulletSpeed;
     public GameObject effect;
     string cur;
     

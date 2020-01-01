@@ -8,8 +8,8 @@ public class movingenemy : MonoBehaviour
     public Transform Player;
     public float Speed;
     private float curSpeed;
-    public float Hp = 5;
-    public float power = 1;
+    public float Hp;
+    public float power;
     Rigidbody2D e;    
     public static int score;
 
@@ -69,7 +69,7 @@ public class movingenemy : MonoBehaviour
 
                 if (bullet.enabled == true)
                 {
-                    Hp--;
+                    Hp -= database.damage;
                     Vector2 attackedVelocity = Vector2.zero;
                     if (other.gameObject.transform.position.x > transform.position.x)
                     {

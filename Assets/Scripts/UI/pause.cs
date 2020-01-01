@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class pause : MonoBehaviour
@@ -8,23 +9,18 @@ public class pause : MonoBehaviour
     // Start is called before the first frame update    
     private GameObject panel;
     private GameObject deathpanel;
-
     private void Awake()
     {
         panel = GameObject.Find("Canvas").transform.Find("Panel").gameObject;
         deathpanel = GameObject.Find("Canvas").transform.Find("deathPanel").gameObject;
-
     }
     void Start()
-    {
-        
+    {        
     }
 
     // Update is called once per frame
     void Update()
-    {
-        if (BtnClick.deathflag == true)
-            deathpanel.SetActive(true);
+    {        
     }
 
     public void Btnclick(string type)

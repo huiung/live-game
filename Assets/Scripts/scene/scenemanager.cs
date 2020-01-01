@@ -36,6 +36,11 @@ public class scenemanager : MonoBehaviour
         SceneManager.LoadScene("stage" + stage);
     }
 
+    public void upgradebtn()
+    {
+        soundmanager.instance.btnsound();
+        StartCoroutine("start", "Upgrade");
+    }
     IEnumerator start(string scene)
     {        
         yield return new WaitForSeconds(0.5f);

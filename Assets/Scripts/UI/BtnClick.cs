@@ -8,15 +8,14 @@ public class BtnClick : MonoBehaviour
     public Transform Player;
     public float Speed;  
     int buttonleft, buttonright;
-    public float Hp = 10;
+    public float Hp;
     SpriteRenderer spriteRenderer;
     bool isUnBeatTime;
     public static bool deathflag;
 
     //점프 관련 변수
-    float bounce = 4.5f;
-    int jump;
-    bool isfloor;
+    float bounce = 10f;
+    int jump;    
     public Rigidbody2D rigid;
 
     //총알 생성 관련 변수
@@ -24,17 +23,21 @@ public class BtnClick : MonoBehaviour
     float shootDelay = 0.5f;
     float shootTimer = 1.5f;
     bool bulletflag;
-    bool firstflag = false;
-    bool iscolision;
+    bool firstflag = false;    
     public static string cur = "L";
 
     private Animator animator;
     // Start is called before the first frame update
     void Start()
     {
+        Hp = database.Hp;
+
         isUnBeatTime = false;
         deathflag = false;
-        Physics2D.IgnoreLayerCollision(9, 9);        
+        Physics2D.IgnoreLayerCollision(9, 9);
+        Physics2D.IgnoreLayerCollision(0, 10);
+        Physics2D.IgnoreLayerCollision(10, 10);
+        Physics2D.IgnoreLayerCollision(10, 11, true);
         jump = 0;
         animator = GetComponent<Animator>();
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
@@ -49,6 +52,7 @@ public class BtnClick : MonoBehaviour
             //오브젝트의 월드 좌표를 스크린 좌표로 변환
             Vector3 pos = Camera.main.WorldToScreenPoint(transform.position);
 
+            //마우스 클릭으로 조작
             if (buttonleft == 1 && pos.x > 0)  //왼쪽 버튼이 눌려지고 스크린 좌표가 0보다 클때만 이동
             {
                 Player.position += Vector3.left * Speed * Time.deltaTime;
@@ -59,20 +63,67 @@ public class BtnClick : MonoBehaviour
             }
             if (bulletflag == true)
                 ShootControl();
+
+            
+            // 테스트를 위하여 키보드로 조작
+            if(Input.GetKeyUp(KeyCode.LeftArrow) && pos.x > 0)
+            {
+                animator.SetBool("Walking", false);
+            }
+            else if(Input.GetKeyUp(KeyCode.RightArrow) && pos.x < Screen.width) {
+                animator.SetBool("Walking", false);
+            }
+
+            else if (Input.GetKey(KeyCode.LeftArrow) && pos.x > 0)  //왼쪽 버튼이 눌려지고 스크린 좌표가 0보다 클때만 이동
+            {
+                cur = "L";
+                animator.SetBool("Walking", true);
+                animator.SetFloat("dirX", -1);
+                Player.position += Vector3.left * Speed * Time.deltaTime;
+            }
+            else if (Input.GetKey(KeyCode.RightArrow) && pos.x < Screen.width) //오른쪽 버튼이 눌려지고 스크린 좌표가 스크린 오른쪽 끝좌표 보다 작을떄만 이동
+            {
+                cur = "R";
+                animator.SetBool("Walking", true);
+                animator.SetFloat("dirX", 1);
+                Player.position += Vector3.right * Speed * Time.deltaTime;
+            }
+
+            if(Input.GetKeyUp(KeyCode.LeftControl))
+            {
+                animator.SetBool("Shot", false);
+            }
+            else if (Input.GetKey(KeyCode.LeftControl))
+            {
+                animator.SetBool("Shot", true);
+                ShootControl();
+            }
         }
     }
 
-
+    
     private void FixedUpdate()
     {
-        if (jump == 1 && isfloor == true) // 버튼이 눌려지고 바닥이나 적과 닿아 있을때 점프 가능 
-        {         
+        if ( jump == 1 && rigid.velocity.y == 0) // 버튼이 눌려지고 바닥이나 적과 닿아 있을때 점프 가능 
+        {
+            soundmanager.instance.jumpsound();
             rigid.AddForce(Vector2.up * bounce, ForceMode2D.Impulse);
         }
 
+
+        if(Input.GetKey(KeyCode.LeftAlt) && rigid.velocity.y == 0) // 버튼이 눌려지고 바닥이나 적과 닿아 있을때 점프 가능 
+        {
+            animator.SetBool("jump", true);
+            soundmanager.instance.jumpsound();
+            rigid.AddForce(Vector2.up * bounce, ForceMode2D.Impulse);
+        }
+        else if(Input.GetKeyUp(KeyCode.LeftAlt))
+        {
+            animator.SetBool("jump", false);
+        }
         //if (Hp < 0) return;
     }
-    
+
 
     public void ButtonDown(string type) //버튼 타입을 받음(2방향)
     {
@@ -98,9 +149,8 @@ public class BtnClick : MonoBehaviour
                     animator.SetFloat("dirX", 1);
                     break;
                 case "J":
-                    jump = 1;
-                    if(isfloor == true)
-                        soundmanager.instance.jumpsound();
+                    animator.SetBool("jump", true);
+                    jump = 1;                                        
                     break;
 
             }
@@ -130,35 +180,12 @@ public class BtnClick : MonoBehaviour
                     animator.SetBool("Walking", false);
                     break;
                 case "J":
+                    animator.SetBool("jump", false);
                     jump = 0;
                     break;
             }
         }
     }
-
-
-    //BoxColider 부분 player의 발에만 적용되어 있음
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (!deathflag) {
-            if (collision.gameObject.tag.Equals("enemy") || collision.gameObject.tag.Equals("floor"))
-                isfloor = true;
-        }
-    }
-
-    private void OnCollisionExit2D(Collision2D collision)
-    {
-        if (!deathflag)
-        {
-            if (collision.gameObject.tag.Equals("floor") || collision.gameObject.tag.Equals("enemy"))
-            //부딪힌 객체의 태그를 비교해서 적인지 판단합니다.
-            {
-                isfloor = false; //점프 중일시 점프 불가능
-            }
-        }
-    }
-
-
 
     //Polygon Colider 부분 istrigger 되어있음
     private void OnTriggerEnter2D(Collider2D other)
