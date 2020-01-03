@@ -6,20 +6,36 @@ using UnityEngine.UI;
 public class movingenemy : MonoBehaviour
 {
     public Transform Player;
-    public float Speed;
-    private float curSpeed;
+    public float Speed;    
     public float Hp;
     public float power;
+    public float duration = 5f;
+    public float scalex = 0.25f;
+    public float scaley = 0.25f;
+    public float bounce = 0f;
     Rigidbody2D e;    
     public static int score;
+    private float curHp;
+    private float curSpeed;
+    private int movementflag;
+    
 
     // Start is called before the first frame update
-    
+
     void Start()
     {
+        Vector3 cur;
+        cur.x = Player.transform.position.x;
+        if (cur.x >= transform.position.x) //플레이어 위치를 통해 처음 내 방향 파악
+            movementflag = 1;
+        else
+            movementflag = 0;
+
+        curHp = Hp-0.5f;
         score = 0;
         e = gameObject.GetComponent<Rigidbody2D>();
         Player = GameObject.Find("player").transform;
+        StartCoroutine(moving(duration)); //코루틴 통해 좌우 반복 이동
     }
 
     // Update is called once per frame
@@ -28,23 +44,50 @@ public class movingenemy : MonoBehaviour
         if (BtnClick.deathflag == false)
         {
             Vector3 cur;
-            cur.x = Player.transform.position.x;
+            cur.x = Player.transform.position.x;            
 
-            if (cur.x >= transform.position.x)
+            if (curHp > Hp) //한대 맞으면 유저를 따라감
             {
-                transform.localScale = new Vector3(0.25f, 0.25f, 1);
-                transform.position += Vector3.right * Speed * Time.deltaTime;
-            }
-            else if (cur.x < transform.position.x - 0.1f)
-            {
-                transform.localScale = new Vector3(-0.25f, 0.25f, 1);
-                transform.position += Vector3.left * Speed * Time.deltaTime;
-            }
 
-            if (Hp < 0)
+                if (cur.x >= transform.position.x)
+                {
+                    transform.localScale = new Vector3(scalex, scaley, 1);
+                    transform.position += Vector3.right * Speed * Time.deltaTime;
+                }
+                else if (cur.x < transform.position.x - 0.1f)
+                {
+                    transform.localScale = new Vector3(-scalex, scaley, 1);
+                    transform.position += Vector3.left * Speed * Time.deltaTime;
+                }
+
+                if (Hp < 0)
+                {
+                    score += 20; //fireball은 20원
+                    Destroy(gameObject);
+                }
+            }
+            else // 맞기전 초기에는 그냥 좌우로 왔다갔다 (맵 끝에서 끝까지)
             {
-                score += 20; //fireball은 20원
-                Destroy(gameObject);
+                Vector3 pos = Camera.main.WorldToScreenPoint(transform.position);                
+
+                if(movementflag == 0) //왼쪽 3초 이동
+                {
+                    if (pos.x > 0)
+                    {
+                        transform.localScale = new Vector3(-scalex, scaley, 1);
+                        transform.position += Vector3.left * Speed * Time.deltaTime;
+                    }
+                }
+                else //오른쪽 3초이동
+                {
+                    if (pos.x < Screen.width)
+                    {
+                        transform.localScale = new Vector3(scalex, scaley, 1);
+                        transform.position += Vector3.right * Speed * Time.deltaTime;
+                    }
+                }
+                
+
             }
         }
     }
@@ -96,4 +139,15 @@ public class movingenemy : MonoBehaviour
         
         
     }
+
+    IEnumerator moving(float time)
+    {        
+        yield return new WaitForSeconds(time);
+        if (movementflag == 0)
+            movementflag = 1;
+        else
+            movementflag = 0;
+        StartCoroutine(moving(duration));
+    }
+
 }

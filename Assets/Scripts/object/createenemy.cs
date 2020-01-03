@@ -7,7 +7,8 @@ public class createenemy : MonoBehaviour
     // Start is called before the first frame update
     float time;
     public GameObject enemy;
-    int num = 5;
+    public int gentime = 5;
+    public int unitnum = 5;
     void Start()
     {
         
@@ -18,10 +19,10 @@ public class createenemy : MonoBehaviour
     {
         time += Time.deltaTime;
                
-       if (time > num && num <= 5)
+       if (time > gentime && gentime <= unitnum*5)
        {
             spawn();
-            num+=5;
+            gentime+=5;
         }
         
     }

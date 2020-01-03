@@ -22,8 +22,8 @@ public class clearPanel : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {
-        if (null == GameObject.Find("fireball(Clone)") && flag)
+    { 
+        if (flag && null == GameObject.FindGameObjectWithTag("enemy"))
         {
             flag = false;
             StartCoroutine("cleartime");

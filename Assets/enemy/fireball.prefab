@@ -141,7 +141,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe6ecc297a7913f40b2bc7956d3b432d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Player: {fileID: 0}
-  Speed: 0.7
+  Player: {fileID: 2982028668681466718, guid: 33cb1dc136de0a64e9f0e2ca076f07c4, type: 3}
+  Speed: 1.3
   Hp: 3
   power: 1
+  duration: 10
+  scalex: 0.25
+  scaley: 0.25
+  bounce: 0

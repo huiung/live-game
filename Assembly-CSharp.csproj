@@ -64,6 +64,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Audios\Zero Rare\Retro Sound Effects\Demo\Demo.cs" />
+    <Compile Include="Assets\FreePixelMob\Mobs.cs" />
+    <Compile Include="Assets\FreePixelMob\StateRandom.cs" />
     <Compile Include="Assets\Scripts\DB\database.cs" />
     <Compile Include="Assets\Scripts\DB\showgold.cs" />
     <Compile Include="Assets\Scripts\object\bul_effect.cs" />
@@ -71,6 +73,7 @@
     <Compile Include="Assets\Scripts\object\createenemy.cs" />
     <Compile Include="Assets\Scripts\object\movingcamera.cs" />
     <Compile Include="Assets\Scripts\object\movingenemy.cs" />
+    <Compile Include="Assets\Scripts\object\movingslime.cs" />
     <Compile Include="Assets\Scripts\scene\scenemanager.cs" />
     <Compile Include="Assets\Scripts\scene\soundmanager.cs" />
     <Compile Include="Assets\Scripts\UI\BtnClick.cs" />
@@ -81,6 +84,7 @@
     <Compile Include="Assets\Scripts\UI\pause.cs" />
     <Compile Include="Assets\Scripts\UI\upgrade.cs" />
     <Compile Include="Assets\Scripts\UI\upgradeText.cs" />
+    <None Include="Assets\FreePixelMob\ReadMe.txt" />
     <None Include="Assets\pixel_character_spritesheets\Readme.txt" />
     <Reference Include="Unity.TextMeshPro.Editor">
       <HintPath>D:/live-game/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
