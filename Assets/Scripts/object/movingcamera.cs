@@ -7,9 +7,11 @@ public class movingcamera : MonoBehaviour
     // Start is called before the first frame update
     public GameObject target; // 카메라가 따라갈 대상
     public float movespeed; //카메라 속도
+    public static int score; //돈
     private Vector3 targetPosition;
     void Start()
     {
+        score = 0;
         targetPosition.Set(target.transform.position.x, this.transform.position.y, this.transform.position.z); // 타겟 좌표 저장
         this.transform.position = Vector3.Lerp(this.transform.position, targetPosition, movespeed * Time.deltaTime); // 카메라 이동
     }

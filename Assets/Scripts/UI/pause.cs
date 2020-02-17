@@ -20,7 +20,11 @@ public class pause : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {        
+    {
+        if (Input.GetKey(KeyCode.Escape))
+        {
+            Btnclick("Pause");
+        }
     }
 
     public void Btnclick(string type)

@@ -5,7 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class scenemanager : MonoBehaviour
 {
-    
+
+    static string prescene;
     // Start is called before the first frame update
     void Start()
     {
@@ -15,8 +16,20 @@ public class scenemanager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (Input.GetKey(KeyCode.Escape) && SceneManager.GetActiveScene().name != "MainScene")
+        {
+            if (SceneManager.GetActiveScene().name == "stage")
+            {
+                StartCoroutine("start", "MainScene");
+            }
+            else if (SceneManager.GetActiveScene().name == "Upgrade")
+            {
+                StartCoroutine("start", "stage");
+            }
+        }
     }
+
+       
 
     public void homebtn()
     {

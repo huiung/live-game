@@ -13,15 +13,13 @@ public class movingenemy : MonoBehaviour
     public float scalex = 0.25f;
     public float scaley = 0.25f;
     public float bounce = 0f;
-    Rigidbody2D e;    
-    public static int score;
+    Rigidbody2D e;        
     private float curHp;
     private float curSpeed;
     private int movementflag;
+
     
-
     // Start is called before the first frame update
-
     void Start()
     {
         Vector3 cur;
@@ -31,16 +29,15 @@ public class movingenemy : MonoBehaviour
         else
             movementflag = 0;
 
-        curHp = Hp-0.5f;
-        score = 0;
+        curHp = Hp-0.5f;        
         e = gameObject.GetComponent<Rigidbody2D>();
         Player = GameObject.Find("player").transform;
-        StartCoroutine(moving(duration)); //코루틴 통해 좌우 반복 이동
+        StartCoroutine(moving(duration)); //코루틴 통해 좌우 반복 이동       
     }
 
     // Update is called once per frame
     void Update()
-    {
+    {        
         if (BtnClick.deathflag == false)
         {
             Vector3 cur;
@@ -62,7 +59,7 @@ public class movingenemy : MonoBehaviour
 
                 if (Hp < 0)
                 {
-                    score += 20; //fireball은 20원
+                    movingcamera.score += 20; //fireball은 20원
                     Destroy(gameObject);
                 }
             }
@@ -139,6 +136,7 @@ public class movingenemy : MonoBehaviour
         
         
     }
+    
 
     IEnumerator moving(float time)
     {        

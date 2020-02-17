@@ -16,7 +16,7 @@ public class clearPanel : MonoBehaviour
         panel = GameObject.Find("Canvas").transform.Find("clearPanel").gameObject;
     }
     void Start()
-    {
+    { 
         StartCoroutine("starttime");
     }
 
@@ -33,18 +33,18 @@ public class clearPanel : MonoBehaviour
 
     IEnumerator starttime()
     {
-        yield return new WaitForSeconds(10.0f);
+        yield return new WaitForSeconds(15.0f);
         flag = true;
     }
 
     IEnumerator cleartime()
     {
         database d = new database();
-        int value = movingenemy.score + database.gold;
+        int value = movingcamera.score + database.gold;
         d.DatabaseUpdate("gold", value.ToString());
         database.gold = value;
         yield return new WaitForSeconds(0.5f);
-        int score = movingenemy.score;
+        int score = movingcamera.score;
         panel.SetActive(true);
         money.text = "+" + score.ToString();
     }

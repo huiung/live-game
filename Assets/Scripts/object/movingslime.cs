@@ -63,7 +63,7 @@ public class movingslime : MonoBehaviour
 
                 if (Hp < 0)
                 {
-                    movingenemy.score += 30; //slime은 30원
+                    movingcamera.score += 30; //slime은 30원
                     Destroy(gameObject);
                 }
             }

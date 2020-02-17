@@ -34,11 +34,11 @@ public class deathPanel : MonoBehaviour
     IEnumerator deathtime()
     {       
         database d = new database();
-        int value = movingenemy.score + database.gold;
+        int value = movingcamera.score + database.gold;
         d.DatabaseUpdate("gold", value.ToString());
         database.gold = value;
         yield return new WaitForSeconds(0.5f);
-        int score = movingenemy.score;
+        int score = movingcamera.score;
         deathpanel.SetActive(true);
         money.text = "+" + score.ToString();
     }

@@ -34,7 +34,7 @@ public class database : MonoBehaviour
             filepath = Application.persistentDataPath + "/livegameDB.db";
             if(!File.Exists(filepath))
             {
-                UnityWebRequest unityWebRequest = UnityWebRequest.Get("jar:file://" + Application.dataPath + "!/assets/livegameDB");
+                UnityWebRequest unityWebRequest = UnityWebRequest.Get("jar:file://" + Application.dataPath + "!/assets/livegameDB.db");
                 unityWebRequest.downloadedBytes.ToString();
                 yield return unityWebRequest.SendWebRequest().isDone;
                 File.WriteAllBytes(filepath, unityWebRequest.downloadHandler.data);
