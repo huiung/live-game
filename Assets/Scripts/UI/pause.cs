@@ -60,7 +60,7 @@ public class pause : MonoBehaviour
     IEnumerator retry(string stage="")
     {        
         yield return new WaitForSeconds(0.5f);
-        deathpanel.SetActive(false);
+        //deathpanel.SetActive(false);
         SceneManager.LoadScene("stage" + stage);        
     }
 }

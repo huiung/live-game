@@ -124,6 +124,7 @@ d251bf88db6c95a6b1aa0b69298da9ef UnityEngine.SpatialTracking.dll:UnityEngine.Spa
 7fb9de8dcf73854b6b328eca1f7a6e6d Unity.Analytics.Tracker.dll:UnityEngine.Analytics.AnalyticsTracker
 73efac4481c1dce6fd0e9b20aceeaef0 Assembly-CSharp.dll:.movingslime
 b8a5e8091ab0b8861d2add371082c5e0 Unity.TextMeshPro.dll:TMPro.TMP_SpriteAsset
+71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:.showquit
 b3ab2106268377ffe25dd18ac23dca28 Unity.TextMeshPro.dll:TMPro.TMP_Asset
 71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:.scenemanager
 71bb6a6b6c8f052f948db64c7dd3ca4f Unity.Analytics.Editor.dll:UnityEditor.Analytics.AnalyticsEventTrackerEditor
@@ -181,4 +182,3 @@ d1dea89f0e959a883708cca4bd8e4d6f Assembly-CSharp.dll:.createenemy
 6afc1ac9130f37dca6265913c876ae74 Assembly-CSharp.dll:.bullet_shot
 71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:.bul_effect
 37b8151202ffd444320c29864b68c94c Assembly-CSharp.dll:.upgrade
-71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:.showquit
